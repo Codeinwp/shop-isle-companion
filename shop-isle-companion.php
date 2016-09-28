@@ -12,107 +12,126 @@ License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
-if ( ! function_exists( 'add_action' ) ) {
-    die();
+$current_theme = wp_get_theme();
+
+$theme_name = $current_theme->Name;
+
+if( $theme_name  == 'Shop Isle' ) {
+    $from_wporg = true;
 }
 
+if ( ! function_exists( 'add_action' ) ) {
+    die('Nothing to do...');
+}
+
+/**
+ * Register the activation hook.
+ */
+register_activation_hook( __FILE__, 'shop_isle_companion_activated' );
+
+/**
+ * Add activation action
+ */
+function shop_isle_companion_activated() {
+    do_action('shop_isle_companion_activation');
+}
+
+/**
+ * Filter to replace big title section with slider.
+ */
+add_filter ( 'shop-isle-subheader', 'shop_isle_companion_slider');
+
+/**
+ * Function used for subheader filter/
+ * @return string
+ */
+function shop_isle_companion_slider() {
+    return plugin_dir_path( __FILE__ ) . 'content-slider.php';
+}
+
+/**
+ * Include customizer controls.
+ */
 require plugin_dir_path( __FILE__ ) . 'customizer.php';
 
 /**
- * Add page template for about us.
+ * Include about page add-ons.
  */
+require plugin_dir_path( __FILE__ ) . 'about-addon.php';
 
-//add_filter( 'page_template', 'shopisle_about_us_page_template' );
-//function shopisle_about_us_page_template( $page_template )
-//{
-//    if ( is_page( 'my-custom-page-slug' ) ) {
-//        $page_template = dirname( __FILE__ ) . '/custom-page-template.php';
-//    }
-//    return $page_template;
-//}
 
+add_action('shop-isle-about-page-after-content', 'shop_isle_companion_about_addon');
 /**
- * Class ShopIslePageTemplater
+ * Function to import customizer big title settings into first slide.
  */
 
+function shop_isle_get_wporg_options() {
+    /* import shop isle options */
+    $shop_isle_mods = get_option('theme_mods_shop-isle');
 
-function shop_isle_slider_addon() {
-    /**
-     * *****    SLIDER   *******
-     *
-     */
+    if (!empty($shop_isle_mods)) {
 
+        $new_slider = new stdClass();
 
-    echo '<section id="home" class="home-section home-parallax home-fade home-full-height">';
+        foreach ($shop_isle_mods as $shop_isle_mod_k => $shop_isle_mod_v) {
 
-    $shop_isle_slider = get_theme_mod( 'shop_isle_slider',json_encode( array( array( 'image_url' => get_template_directory_uri() . '/assets/images/slide1.jpg', 'link' => '#', 'text' => __( 'ShopIsle','shop-isle' ), 'subtext' => __( 'WooCommerce Theme','shop-isle' ), 'label' => __( 'FIND OUT MORE','shop-isle' ) ), array( 'image_url' => get_template_directory_uri() . '/assets/images/slide2.jpg', 'link' => '#', 'text' => __( 'ShopIsle','shop-isle' ), 'subtext' => __( 'Hight quality store','shop-isle' ), 'label' => __( 'FIND OUT MORE','shop-isle' ) ), array( 'image_url' => get_template_directory_uri() . '/assets/images/slide3.jpg', 'link' => '#', 'text' => __( 'ShopIsle','shop-isle' ), 'subtext' => __( 'Responsive Theme','shop-isle' ), 'label' => __( 'FIND OUT MORE','shop-isle' ) ) ) ) );
+            /* migrate Big title section to Slider section */
+            if (($shop_isle_mod_k == 'shop_isle_big_title_image') || ($shop_isle_mod_k == 'shop_isle_big_title_title') || ($shop_isle_mod_k == 'shop_isle_big_title_subtitle') || ($shop_isle_mod_k == 'shop_isle_big_title_button_label') || ($shop_isle_mod_k == 'shop_isle_big_title_button_link')) {
 
-    if ( ! empty( $shop_isle_slider ) ) {
-
-        $shop_isle_slider_decoded = json_decode( $shop_isle_slider );
-
-        if ( ! empty( $shop_isle_slider_decoded ) ) {
-
-            echo '<div class="hero-slider">';
-
-            echo '<ul class="slides">';
-
-            foreach ( $shop_isle_slider_decoded as $shop_isle_slide ) {
-
-                if ( ! empty( $shop_isle_slide->image_url ) ) {
-
-                    if ( function_exists( 'icl_t' ) && ! empty( $shop_isle_slide->id ) ) {
-                        $shop_isle_slider_image_url = icl_t( 'Slide ' . $shop_isle_slide->id, 'Slide image', $shop_isle_slide->image_url );
-                        echo '<li class="bg-dark-30 bg-dark" style="background-image:url(' . esc_url( $shop_isle_slider_image_url ) . ')">';
+                if ($shop_isle_mod_k == 'shop_isle_big_title_image') {
+                    if (!empty($shop_isle_mod_v)) {
+                        $new_slider->image_url = $shop_isle_mod_v;
                     } else {
-                        echo '<li class="bg-dark-30 bg-dark" style="background-image:url(' . esc_url( $shop_isle_slide->image_url ) . ')">';
+                        $new_slider->image_url = '';
                     }
-
-                    echo '<div class="hs-caption">';
-                    echo '<div class="caption-content">';
-
-                    if ( ! empty( $shop_isle_slide->text ) ) {
-                        if ( function_exists( 'icl_t' ) && ! empty( $shop_isle_slide->id ) ) {
-                            $shop_isle_slider_text = icl_t( 'Slide ' . $shop_isle_slide->id, 'Slide text', $shop_isle_slide->text );
-                            echo '<div class="hs-title-size-4 font-alt mb-30">' . $shop_isle_slider_text . '</div>';
-                        } else {
-                            echo '<div class="hs-title-size-4 font-alt mb-30">' . $shop_isle_slide->text . '</div>';
-                        }
-                    }
-
-                    if ( ! empty( $shop_isle_slide->subtext ) ) {
-                        if ( function_exists( 'icl_t' ) && ! empty( $shop_isle_slide->id ) ) {
-                            $shop_isle_slider_subtext = icl_t( 'Slide ' . $shop_isle_slide->id, 'Slide subtext', $shop_isle_slide->subtext );
-                            echo '<div class="hs-title-size-1 font-alt mb-40">' . $shop_isle_slider_subtext . '</div>';
-                        } else {
-                            echo '<div class="hs-title-size-1 font-alt mb-40">' . $shop_isle_slide->subtext . '</div>';
-                        }
-                    }
-
-                    if ( ! empty( $shop_isle_slide->link ) && ! empty( $shop_isle_slide->label ) ) {
-                        if ( function_exists( 'icl_t' ) && ! empty( $shop_isle_slide->id ) ) {
-                            $shop_isle_slider_link  = icl_t( 'Slide ' . $shop_isle_slide->id, 'Slide button link', $shop_isle_slide->link );
-                            $shop_isle_slider_label = icl_t( 'Slide ' . $shop_isle_slide->id, 'Slide button label', $shop_isle_slide->label );
-                            echo '<a href="' . esc_url( $shop_isle_slider_link ) . '" class="section-scroll btn btn-border-w btn-round">' . $shop_isle_slider_label . '</a>';
-                        } else {
-                            echo '<a href="' . esc_url( $shop_isle_slide->link ) . '" class="section-scroll btn btn-border-w btn-round">' . $shop_isle_slide->label . '</a>';
-                        }
-                    }
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</li>';
-
                 }
+
+                if ($shop_isle_mod_k == 'shop_isle_big_title_title') {
+                    if (!empty($shop_isle_mod_v)) {
+                        $new_slider->text = $shop_isle_mod_v;
+                    } else {
+                        $new_slider->text = '';
+                    }
+                }
+
+                if ($shop_isle_mod_k == 'shop_isle_big_title_subtitle') {
+                    if (!empty($shop_isle_mod_v)) {
+                        $new_slider->subtext = $shop_isle_mod_v;
+                    } else {
+                        $new_slider->subtext = '';
+                    }
+                }
+
+                if ($shop_isle_mod_k == 'shop_isle_big_title_button_label') {
+                    if (!empty($shop_isle_mod_v)) {
+                        $new_slider->label = $shop_isle_mod_v;
+                    } else {
+                        $new_slider->label = '';
+                    }
+                }
+
+                if ($shop_isle_mod_k == 'shop_isle_big_title_button_link') {
+                    if (!empty($shop_isle_mod_v)) {
+                        $new_slider->link = $shop_isle_mod_v;
+                    } else {
+                        $new_slider->link = '';
+                    }
+                }
+
+                if (!empty($new_slider)) {
+                    $new_slider_encode = json_encode(array($new_slider));
+                    set_theme_mod('shop_isle_slider', $new_slider_encode);
+                }
+            } else {
+
+                set_theme_mod($shop_isle_mod_k, $shop_isle_mod_v);
             }
-
-            echo '</ul>';
-
-            echo '</div>';
-
         }
     }
 
-    echo '</section >';
-
 }
-?>
+
+/*
+ * Import customizer options from Lite version
+ */
+add_action( 'shop_isle_companion_activation', 'shop_isle_get_wporg_options' );
