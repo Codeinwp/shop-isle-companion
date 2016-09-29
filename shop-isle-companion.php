@@ -2,8 +2,8 @@
 /*
 Plugin Name: Shop Isle Companion
 Plugin URI: https://github.com/Codeinwp/shop-isle-companion
-Description: Add About Template.
-Version: 1.0.0
+Description: Add a slider to the front page, add new sections to the about page template in Shop Isle.
+Version: 1.0.1
 Author: Themeisle
 Author URI: http://themeisle.com
 Text Domain: shop-isle-companion
@@ -13,12 +13,6 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 $current_theme = wp_get_theme();
-
-$theme_name = $current_theme->Name;
-
-if( $theme_name  == 'Shop Isle' ) {
-    $from_wporg = true;
-}
 
 if ( ! function_exists( 'add_action' ) ) {
     die('Nothing to do...');
