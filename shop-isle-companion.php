@@ -49,9 +49,9 @@ function shop_isle_companion_slider() {
 require plugin_dir_path( __FILE__ ) . 'customizer.php';
 
 /**
- * Include about page add-ons.
+ * Include template loader.
  */
-require plugin_dir_path( __FILE__ ) . 'about-addon.php';
+require plugin_dir_path( __FILE__ ) . 'class-template-loader.php';
 
 
 add_action('shop-isle-about-page-after-content', 'shop_isle_companion_about_addon');
