@@ -60,6 +60,19 @@ function shop_isle_companion_customize_register($wp_customize) {
         'shop_isle_box_add_label' => __( 'Add new slide','shop-isle' ),
     ) ) );
 
+	/* Slider shortcode  */
+	$wp_customize->add_setting( 'shop_isle_homepage_slider_shortcode', array(
+		'sanitize_callback' => 'shop_isle_sanitize_text',
+	));
+
+	$wp_customize->add_control( 'shop_isle_homepage_slider_shortcode', array(
+		'label'    => __( 'Slider shortcode', 'shop-isle' ),
+		'description' => __( 'You can replace the homepage slider with any plugin you like, just copy the shortcode generated and paste it here.', 'shop-isle'),
+		'section'  => 'shop_isle_slider_section',
+		'active_callback' => 'is_front_page',
+		'priority'    => 10
+	));
+
     /*********************************/
     /******  About us page  **********/
     /*********************************/
