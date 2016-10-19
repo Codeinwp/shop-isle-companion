@@ -7,7 +7,7 @@
 
 $shop_isle_homepage_slider_shortcode = get_theme_mod('shop_isle_homepage_slider_shortcode');
 
-echo '<section id="home" class="home-section home-parallax home-fade home-full-height">';
+echo '<section id="home" class="home-section home-parallax home-fade'. (empty($shop_isle_homepage_slider_shortcode) ? ' home-full-height' : ' home-slider-plugin' ) .'">';
 
 if( !empty($shop_isle_homepage_slider_shortcode) ) {
 	echo do_shortcode( $shop_isle_homepage_slider_shortcode );
