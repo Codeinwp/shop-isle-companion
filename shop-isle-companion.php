@@ -3,7 +3,7 @@
 Plugin Name: Shop Isle Companion
 Plugin URI: https://github.com/Codeinwp/shop-isle-companion
 Description: Add a slider to the front page, add new sections to the about page template in Shop Isle.
-Version: 1.0.2
+Version: 1.0.3
 Author: Themeisle
 Author URI: http://themeisle.com
 Text Domain: shop-isle-companion
@@ -49,9 +49,9 @@ function shop_isle_companion_slider() {
 require plugin_dir_path( __FILE__ ) . 'customizer.php';
 
 /**
- * Include about page add-ons.
+ * Include template loader.
  */
-require plugin_dir_path( __FILE__ ) . 'about-addon.php';
+require plugin_dir_path( __FILE__ ) . 'class-template-loader.php';
 
 
 add_action('shop-isle-about-page-after-content', 'shop_isle_companion_about_addon');
