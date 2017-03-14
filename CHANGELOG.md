@@ -1,4 +1,8 @@
 
+### 1.0.4 - 14/03/2017
+**Changes:** 
+- Development
+
 ### 1.0.3 - 21/10/2016
 **Changes:** 
 - NEW option to allow a shortcode instead of the main slider
