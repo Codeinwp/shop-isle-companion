@@ -1,4 +1,8 @@
 
+### 1.0.5 - 30/04/2017
+**Changes:** 
+- Development
+
 ### 1.0.5 - 24/04/2017
 **Changes:** 
 - Update version
