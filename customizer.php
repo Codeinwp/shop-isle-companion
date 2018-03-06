@@ -66,20 +66,22 @@ function shop_isle_companion_customize_register($wp_customize) {
 		)
 	);
 
-	$wp_customize->add_control( new Shop_Isle_Repeater_Controler( $wp_customize, 'shop_isle_slider', array(
-		'label'                     => __( 'Add new slide', 'shop-isle' ),
-		'section'                   => 'shop_isle_slider_section',
-		'active_callback'           => 'is_front_page',
-		'priority'                  => 2,
-		'shop_isle_image_control'   => true,
-		'shop_isle_text_control'    => true,
-		'shop_isle_link_control'    => true,
-		'shop_isle_subtext_control' => true,
-		'shop_isle_label_control'   => true,
-		'shop_isle_icon_control'    => false,
-		'shop_isle_box_label'       => __( 'Slide', 'shop-isle' ),
-		'shop_isle_box_add_label'   => __( 'Add new slide', 'shop-isle' ),
-	) ) );
+	if ( class_exists( 'Shop_Isle_Repeater_Controler' ) ) {
+		$wp_customize->add_control( new Shop_Isle_Repeater_Controler( $wp_customize, 'shop_isle_slider', array(
+			'label'                     => __( 'Add new slide', 'shop-isle' ),
+			'section'                   => 'shop_isle_slider_section',
+			'active_callback'           => 'is_front_page',
+			'priority'                  => 2,
+			'shop_isle_image_control'   => true,
+			'shop_isle_text_control'    => true,
+			'shop_isle_link_control'    => true,
+			'shop_isle_subtext_control' => true,
+			'shop_isle_label_control'   => true,
+			'shop_isle_icon_control'    => false,
+			'shop_isle_box_label'       => __( 'Slide', 'shop-isle' ),
+			'shop_isle_box_add_label'   => __( 'Add new slide', 'shop-isle' ),
+		) ) );
+	}
 
 	/* Slider shortcode  */
 	$wp_customize->add_setting( 'shop_isle_homepage_slider_shortcode', array(
@@ -169,21 +171,23 @@ function shop_isle_companion_customize_register($wp_customize) {
 			)
 		) ),
 	) );
-	$wp_customize->add_control( new Shop_Isle_Repeater_Controler( $wp_customize, 'shop_isle_team_members', array(
-		'label'                         => __( 'Add new team member', 'shop-isle' ),
-		'section'                       => 'shop_isle_about_page_section',
-		'active_callback'               => 'shop_isle_companion_is_aboutus_page',
-		'priority'                      => 3,
-		'shop_isle_image_control'       => true,
-		'shop_isle_link_control'        => false,
-		'shop_isle_text_control'        => true,
-		'shop_isle_subtext_control'     => true,
-		'shop_isle_label_control'       => false,
-		'shop_isle_icon_control'        => false,
-		'shop_isle_description_control' => true,
-		'shop_isle_box_label'           => __( 'Team member', 'shop-isle' ),
-		'shop_isle_box_add_label'       => __( 'Add new team member', 'shop-isle' )
-	) ) );
+	if ( class_exists( 'Shop_Isle_Repeater_Controler' ) ) {
+		$wp_customize->add_control( new Shop_Isle_Repeater_Controler( $wp_customize, 'shop_isle_team_members', array(
+			'label'                         => __( 'Add new team member', 'shop-isle' ),
+			'section'                       => 'shop_isle_about_page_section',
+			'active_callback'               => 'shop_isle_companion_is_aboutus_page',
+			'priority'                      => 3,
+			'shop_isle_image_control'       => true,
+			'shop_isle_link_control'        => false,
+			'shop_isle_text_control'        => true,
+			'shop_isle_subtext_control'     => true,
+			'shop_isle_label_control'       => false,
+			'shop_isle_icon_control'        => false,
+			'shop_isle_description_control' => true,
+			'shop_isle_box_label'           => __( 'Team member', 'shop-isle' ),
+			'shop_isle_box_add_label'       => __( 'Add new team member', 'shop-isle' )
+		) ) );
+	}
 	/***********************************************************************************/
 	/******  About us page - instructions for users when not on About us page  *********/
 	/***********************************************************************************/
@@ -307,21 +311,23 @@ function shop_isle_companion_customize_register($wp_customize) {
 			)
 		) ),
 	) );
-	$wp_customize->add_control( new Shop_Isle_Repeater_Controler( $wp_customize, 'shop_isle_advantages', array(
-		'label'                         => __( 'Add new advantage', 'shop-isle' ),
-		'section'                       => 'shop_isle_about_page_advantages_section',
-		'active_callback'               => 'shop_isle_companion_is_aboutus_page',
-		'priority'                      => 2,
-		'shop_isle_image_control'       => false,
-		'shop_isle_link_control'        => false,
-		'shop_isle_text_control'        => true,
-		'shop_isle_subtext_control'     => true,
-		'shop_isle_label_control'       => false,
-		'shop_isle_icon_control'        => true,
-		'shop_isle_description_control' => false,
-		'shop_isle_box_label'           => __( 'Advantage', 'shop-isle' ),
-		'shop_isle_box_add_label'       => __( 'Add new advantage', 'shop-isle' )
-	) ) );
+	if ( class_exists( 'Shop_Isle_Repeater_Controler' ) ) {
+		$wp_customize->add_control( new Shop_Isle_Repeater_Controler( $wp_customize, 'shop_isle_advantages', array(
+			'label'                         => __( 'Add new advantage', 'shop-isle' ),
+			'section'                       => 'shop_isle_about_page_advantages_section',
+			'active_callback'               => 'shop_isle_companion_is_aboutus_page',
+			'priority'                      => 2,
+			'shop_isle_image_control'       => false,
+			'shop_isle_link_control'        => false,
+			'shop_isle_text_control'        => true,
+			'shop_isle_subtext_control'     => true,
+			'shop_isle_label_control'       => false,
+			'shop_isle_icon_control'        => true,
+			'shop_isle_description_control' => false,
+			'shop_isle_box_label'           => __( 'Advantage', 'shop-isle' ),
+			'shop_isle_box_add_label'       => __( 'Add new advantage', 'shop-isle' )
+		) ) );
+	}
 }
 
 
