@@ -13,6 +13,15 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 $current_theme = wp_get_theme();
+$current_theme_template = $current_theme->template;
+
+/**
+ * Disable plugin if current theme is not shop-isle
+ * Plugin should be disabled even with shop-isle-pro
+ */
+if ( $current_theme_template !== 'shop-isle' ) {
+	return;
+}
 
 if ( ! function_exists( 'add_action' ) ) {
     die('Nothing to do...');
