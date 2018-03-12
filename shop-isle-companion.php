@@ -13,19 +13,38 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 $current_theme = wp_get_theme();
-$current_theme_template = $current_theme->template;
-
-/**
- * Disable plugin if current theme is not shop-isle
- * Plugin should be disabled even with shop-isle-pro
- */
-if ( $current_theme_template !== 'shop-isle' ) {
-	return;
-}
 
 if ( ! function_exists( 'add_action' ) ) {
     die('Nothing to do...');
 }
+
+/**
+ * Check if current theme is shop-isle
+ *
+ * If not, disable the plugin
+ */
+function shop_isle_companion_check_theme() {
+
+	$current_theme = wp_get_theme();
+	$current_theme_template = $current_theme->template;
+
+	$shop_isle_companion_errors = __( 'You need to have <a href="https://wordpress.org/themes/shop-isle/" target="_blank">ShopIsle</a> theme in order to use ShopIsle Companion plugin.', 'shop-isle-companion' );
+
+	if ( $current_theme_template !== 'shop-isle' ) {
+
+		/* Suppress "Plugin activated" notice. */
+		unset( $_GET['activate'] );
+
+		/* Inform user that plugin was deactivated due to the lack of its requirements */
+		echo '<div class="notice error my-acf-notice is-dismissible">';
+		echo '<p>' . $shop_isle_companion_errors . '</p>';
+		echo '<p>' . __( '<i>ShopIsle Companion</i> has been deactivated.', 'shop-isle-companion' ) . '</p>';
+		echo '</div>';
+
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+	}
+}
+add_action( 'admin_notices', 'shop_isle_companion_check_theme' );
 
 /**
  * Register the activation hook.
