@@ -1,4 +1,9 @@
 
+### 1.0.9 - 14/03/2018
+**Changes:** 
+- Deactivate the plugin when used with another theme than Shop Isle
+- Added selective refresh in customizer
+
 ### 1.0.8 - 25/10/2017
 **Changes:** 
 - Use featured image as header image in the About template
