@@ -1,4 +1,12 @@
 
+### 1.0.8 - 25/10/2017
+**Changes:** 
+- Use featured image as header image in the About template
+
+### 1.0.7 - 30/04/2017
+**Changes:** 
+- Update version
+
 ### 1.0.5 - 30/04/2017
 **Changes:** 
 - Development
